@@ -1,7 +1,7 @@
 class Solution {
 public:
     // non-decreasing order: 중복 숫자가 있을 수 있는, 오름차순 정렬.
-    // decreasing은 .. 줄어드는(내림차순) 정렬이니깐 ㅋ
+    // decreasing은 .. 줄어드는(내림차순) 정렬이니깐
     int removeDuplicates(vector<int>& nums) {
         /** 수도코드
         * 0 ~ n 돈다.
@@ -14,10 +14,9 @@ public:
         **/
 
         int k = 1; // 1개 이상이므로 ㄱㅊㄱㅊ
-        auto cur = nums.begin();
         auto sorted = nums.begin();
 
-        for (; cur != nums.end(); ++cur) {
+        for (auto cur = nums.begin() + 1; cur != nums.end(); ++cur) {
             if (*cur > *sorted) {
                 *(++sorted) = *cur;
                 ++k;
