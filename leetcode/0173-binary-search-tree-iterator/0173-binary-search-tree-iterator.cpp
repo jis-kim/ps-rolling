@@ -13,45 +13,37 @@
  * };
  */
 
-
 class BSTIterator {
 private:
-    vector<TreeNode*> index;
-    vector<TreeNode*>::iterator indexIt;
-
-    void makeMetaTree(TreeNode* root) {
-        if(!root) return ;
-
-        makeMetaTree(root->left);
-        index.push_back(root);
-        makeMetaTree(root->right);
+    stack<TreeNode*> st;
+    
+    // 현재 노드부터 가장 왼쪽 노드까지 모든 노드를 스택에 푸시
+    void pushLeftNodes(TreeNode* node) {
+        while (node) {
+            st.push(node);
+            node = node->left;
+        }
     }
-
+    
 public:
-    /**
-    * in-order(중위순회)하는 BST iterator를 만들어라
-    * 왼쪽 자식 -> 루트 -> 오른쪽자식.
-    */
-    BSTIterator(TreeNode* root) { //생성자
-        makeMetaTree(root);
-        indexIt = index.end();
+    BSTIterator(TreeNode* root) {
+        pushLeftNodes(root);
     }
     
     int next() {
-        // first call will return the smallest element
-        // next가 ㄹㅇ로 있는 경우에만 호출한다고 가정함.
-        // 부모가 있다면, 부모.
-        // 부모가 없다면, 오른쪽 자식.
-        if (indexIt == index.end()) {
-            indexIt = index.begin();
-        } else {
-            ++indexIt;
+        TreeNode* curr = st.top();
+        st.pop();
+        
+        // 오른쪽 서브트리가 있으면 처리
+        if (curr->right) {
+            pushLeftNodes(curr->right);
         }
-        return (*indexIt)->val;
+        
+        return curr->val;
     }
     
     bool hasNext() {
-        return (indexIt + 1) != index.end();
+        return !st.empty();
     }
 };
 
