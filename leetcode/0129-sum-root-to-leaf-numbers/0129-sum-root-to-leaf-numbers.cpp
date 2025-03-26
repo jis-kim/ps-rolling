@@ -13,22 +13,16 @@
  */
 class Solution {
 private:
-    int total;
-
     int sumParent(TreeNode* cur, int prevSum) {
+        if (!cur) {
+            return 0;
+        }
+        
         prevSum = prevSum * 10 + cur->val;
         if (!cur->left && !cur->right) {
-            cout << prevSum <<endl;
             return prevSum;
         } 
-        int left = 0, right = 0;
-        if (cur->left) {
-            left = sumParent(cur->left, prevSum);
-        }
-        if (cur->right) {
-            right = sumParent(cur->right, prevSum);
-        }
-        return left + right;
+        return sumParent(cur->left, prevSum) + sumParent(cur->right, prevSum);
     }
 
 public:
