@@ -2,8 +2,8 @@ class Solution {
 public:
     string longestPalindrome(string s) {
         int n = s.length();
-    
-        vector<vector<bool>> dp(n, vector<bool>(n, false));
+        bool dp[1000][1000];
+        memset(dp, 0, sizeof(dp));
         int start = 0, len = 1;
 
         // 가장 긴 팰린드롬 찾기
