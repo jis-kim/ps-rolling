@@ -10,6 +10,7 @@
  * };
  */
 class Solution {
+private:
     TreeNode* makeTree(vector<int>& nums, int left, int right){
         if (left > right) return nullptr;
         int middle = left + (right - left) / 2;
