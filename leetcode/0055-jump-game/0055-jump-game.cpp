@@ -1,22 +1,35 @@
 class Solution {
-public:
-    bool canJump(vector<int>& nums) {
-        int n = nums.size();
-        int maxReach = 0; // 가장 먼 위치.
+private:
+    bool visited[10000];
 
-        for (int i = 0; i < n; ++i) {
-            if (i > maxReach) {
-                return false; // 현재 위치에 도달할 수 없음.
+    // reverse side brute force
+    bool findNextHop(vector<int>& nums, int index) {
+        // 현재 노드가 마지막 노드이거나 그보다 크면 끝에 도달한 것이다.
+        visited[index] = true;
+        int range = nums[index];
+
+        // 현재 노드가 0이 아닐 때까지 진행할 수 있다.
+        // true가 나올때까지 index + 1 ~ index + range를 역순으로 돈다.
+        for (;range > 0; --range) {
+            if (index + range >= nums.size() - 1) {
+                return true;
             }
-            maxReach = max(maxReach, i + nums[i]);
-            // 현재 인덱스에서 갈 수 있는 가장 먼 곳을 업데이트.
-            // 실제로 실행해보지 않아도 최대 거리를 구할 수 있다.
-
-            if (maxReach >= n - 1) {
+            if (nums[index + range] == 0 || visited[index + range] == true) {
+                continue;
+            }
+            if(findNextHop(nums, index + range)) { // 이전 노드들이 다 true이면 true이다.
                 return true;
             }
         }
-        
+        // 없으면 이 노드는 망했다.
         return false;
+    }
+
+public:
+    bool canJump(vector<int>& nums) {
+        if (nums.size() <= 1) {
+            return true;
+        }
+        return findNextHop(nums, 0);
     }
 };
