@@ -1,11 +1,12 @@
 class Solution {
 public:
     bool containsNearbyDuplicate(vector<int>& nums, int k) {
-        // nums[i] == nums[j], abs(i - j) <= k를 만족하는 i, j를 찾으시오
-        for(int i = 0; i < nums.size() - 1; ++i) {
-            for (int j = i + 1; j < nums.size() && j <= i + k; ++j) {
-                if (nums[i] == nums[j]) { return true; }
-            }
+        // nums[i] == nums[j], abs(i - j) <= k를 만족하는 i, j
+        unordered_set<int> s;
+        for(int i = 0; i < nums.size(); ++i) {
+            if (i > k) s.erase(nums[i - k - 1]); // k index 이전을 삭제
+            if (s.count(nums[i])) return true;
+            s.insert(nums[i]);
         }
         return false;
     }
