@@ -21,8 +21,9 @@ public:
         vector<string> dp[9] = {};
         dp[0] = { "" };
         dp[1] = { "()" };
+        dp[2] = { "(())", "()()"};
 
-        for (int i = 2; i <= n; ++i) {
+        for (int i = 3; i <= n; ++i) {
             for (int j = 0; j < i; ++j) {
                 for (const string& inside : dp[j]) {
                     for (const string& outside : dp[i - 1 - j]) {
