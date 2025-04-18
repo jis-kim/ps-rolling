@@ -18,7 +18,20 @@ private:
 
 public:
     vector<string> generateParenthesis(int n) {
-        selectPat("(", n - 1, n);
-        return res;
+        vector<string> dp[9] = {};
+        dp[0] = { "" };
+        dp[1] = { "()" };
+
+        for (int i = 2; i <= n; ++i) {
+            for (int j = 0; j < i; ++j) {
+                for (const string& inside : dp[j]) {
+                    for (const string& outside : dp[i - 1 - j]) {
+                        dp[i].push_back("(" + inside + ")" + outside);
+                    }
+                }
+            }
+        }
+
+        return dp[n];
     }
 };
