@@ -1,33 +1,24 @@
 class Solution {
 private:
-    int left;
-    int right;
     vector<string> res;
 
-    void selectPat( string s) {
+    void selectPat(string s, int left, int right) {
         if (left == 0 && right == 0) {
             res.push_back(s);
             return;
         }
+
         if (left > 0) {
-            --left;
-            selectPat(s + "(");
-            ++left;
+            selectPat(s + "(", left - 1, right);
         }
         if (right > left && right > 0){
-            --right;
-            selectPat(s + ")");
-            ++right;
+            selectPat(s + ")", left, right - 1);
         }
     }
 
 public:
     vector<string> generateParenthesis(int n) {
-        left = n - 1;
-        right = n;
-
-        selectPat("(");
-
+        selectPat("(", n - 1, n);
         return res;
     }
 };
