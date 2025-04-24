@@ -8,8 +8,7 @@ public:
 
         // 0 ~ i(i미포함)
         for (int i = 1; i <= s.size(); ++i) {
-            cout<< "i : " << i  << endl;
-            for (int j = 0; j <= i; ++j) {
+            for (int j = 0; j < i; ++j) {
                 // i -> 0 ~ i까지 wordDict의 구성임. (i포함)
                 // 0 ~ j, j ~ i
                 // substr의 두번째 인자는 length
