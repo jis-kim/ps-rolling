@@ -14,18 +14,9 @@ private:
     **/
     struct UnorderedPairHash {
         size_t operator()(const pair<int, int>& p) const {
-            int a = min(p.first, p.second);
-            int b = max(p.first, p.second);
-            return hash<int>()(a) ^ (hash<int>()(b) << 1);
+            // return hash<int>()(a) ^ (hash<int>()(b) << 1);
             // 둘의 해시값을 가져와 섞음.
-        }
-    };
-
-    // 해시 충돌 시 ==으로 값의 차이를 판단하므로 비교연산을 재정의(기본 pair 사용x)
-    struct UnorderedPairEqual {
-        bool operator()(const pair<int, int>& a, const pair<int, int>& b) const {
-            return (a.first == b.first && a.second == b.second) ||
-                (a.first == b.second && a.second == b.first);
+            return hash<int>()(p.first) * 31 + hash<int>()(p.second);
         }
     };
 
@@ -33,13 +24,13 @@ public:
     int numEquivDominoPairs(vector<vector<int>>& dominoes) {
         int countEqual = 0;
         // 해시 기반 컨테이너이므로 해시 함수가 필요함.
-        unordered_map<pair<int, int>, int, UnorderedPairHash, UnorderedPairEqual> m;
+        unordered_map<pair<int, int>, int, UnorderedPairHash> m;
 
         for (auto d: dominoes) {
             pair<int, int> dPair{d[0], d[1]};
-            // if (dPair.first > dPair.second) {
-            //     swap(dPair.first, dPair.second);
-            // }
+            if (dPair.first > dPair.second) {
+                swap(dPair.first, dPair.second);
+            }
             ++m[dPair];
         }
 
