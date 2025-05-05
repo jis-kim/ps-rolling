@@ -5,11 +5,10 @@ public:
         map<pair<int, int>, int> m;
 
         for (auto d: dominoes) {
-            pair<int, int> dPair{d[0], d[1]};
-            if (dPair.first > dPair.second) {
-                swap(dPair.first, dPair.second);
+            if (d[0] > d[1]) {
+                swap(d[0], d[1]);
             }
-            ++m[dPair];
+            ++m[make_pair(d[0], d[1])];
         }
 
         for (auto n: m) {
