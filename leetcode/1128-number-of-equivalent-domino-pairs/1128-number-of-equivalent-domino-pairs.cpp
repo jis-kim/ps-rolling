@@ -12,9 +12,7 @@ public:
         }
 
         for (auto n: m) {
-            if (n.second > 1) {
-                countEqual += n.second * (n.second - 1) / 2;
-            }
+            countEqual += n.second * (n.second - 1) / 2;
         }
 
         return countEqual;
