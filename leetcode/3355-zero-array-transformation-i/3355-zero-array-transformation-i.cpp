@@ -2,7 +2,8 @@ class Solution {
 public:
     bool isZeroArray(vector<int>& nums, vector<vector<int>>& queries) {
         int len = nums.size(); // 0 ~ len - 1;
-        vector<int> diff(len, 0);
+        int diff[100000];
+        memset(diff, 0, 100000 * sizeof(int));
 
         // 차분 배열 활용. 범위 시작점에 +, (끝점 +1)에 -표시한다.
         // +시점부터 +만큼 누적, -부터는 -누적함. -> end ~ 나머지는 0이 됨.
