@@ -4,10 +4,10 @@ public:
         sort(nums.begin(), nums.end());
 
         int res = 0;
-        for (int i = 0; i < nums.size(); ++i) {
-            if (i % 2 == 0) res += nums[i];
+        for (int i = 1; i < nums.size(); i += 2) {
+            res += nums[i];
         }
-        
+
         return res;
     }
 };
